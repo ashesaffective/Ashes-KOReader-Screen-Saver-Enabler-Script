@@ -1,0 +1,10 @@
+# Ashes-KOReader-Screen-Saver-Enabler-Script
+give your kindle the swag it deserves :3
+By default, KOReader detects Special Offer (SO) Kindles, the ones with ads on them.. and disables custom sleep screen images. I don't know if KOReader did this for leagal reasons or good grace but this script automates [r/mc711’s](https://www.reddit.com/r/kindle/comments/1ivclap/enable_custom_screensaver_in_koreader_on_so_kindle/) method to fool this detection :D
+
+I put together this script to automate this process because after updating KOReader though the kindle it seemed to have overwrote the file I'd tweaked and set the settings back to default, I thought "wow that'd be annoying to do everytime if I wanna still update" and thats when dis silly lil script came about
+
+I personally perfer it as just an exe so I can leave it on my desktop and run it but the source ps1 code is included in the repo if you wanna build yourself, I used [Markus Scholtes's Win-PS2EXE](https://github.com/MScholtes/Win-PS2EXE)
+
+made with love
+-ash
