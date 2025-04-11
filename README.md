@@ -1,5 +1,5 @@
 ![[meow](https://youtu.be/j-9BL5x8GcQ?si=h3QebTx2JcM9e-Ew)](https://github.com/user-attachments/assets/3017e692-bfbb-463c-aacc-756baeeea003)
-
+[video](https://youtu.be/j-9BL5x8GcQ?si=h3QebTx2JcM9e-Ew)
 
 # Ashes-KOReader-Screen-Saver-Enabler-Script
 give your special offer (SO) kindle the swag it deserves :3
