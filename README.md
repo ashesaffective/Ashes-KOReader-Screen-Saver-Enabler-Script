@@ -9,9 +9,10 @@ I put together this script to automate this process because after updating KORea
 
 I personally perfer it as just an exe so I can leave it on my desktop and run it but the source ps1 code is included in the repo if you wanna build yourself or peek at the spegetti, I used [Markus Scholtes's Win-PS2EXE](https://github.com/MScholtes/Win-PS2EXE) to compile
 
-#MACOS USERS !!
-[you can run the .ps1 script :3](https://www.youtube.com/watch?v=QvsNE0kEdwo) with brew
-untested ^^^ otherwise you can still get it working with the manual method from the redit post!
+# MACOS USERS !!
+[you can run the .ps1 script :3](https://www.youtube.com/watch?v=QvsNE0kEdwo) with brew ; untested ^^^ otherwise you can still get it working with the manual method from the redit post!
+
+
 made with love
 
 -ash
