@@ -1,12 +1,6 @@
-﻿[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
 # Ash's KOReader Screen Saver Enabler :3 🎁🌸
-Add-Type -AssemblyName Microsoft.VisualBasic
-Add-Type -AssemblyName System.Windows.Forms
-
-
-
-
 
 
 function Show-FlowerAnimation($lines, $delay = 100) {
@@ -111,19 +105,26 @@ Write-Host "`nPress any key to continue..."
 # 🔍 Locate Kindle
 Write-Host "`n[*] Scanning for Kindle..."
 
-$drive = Get-PSDrive -PSProvider FileSystem |
-    Where-Object { Test-Path "$($_.Root)\koreader\frontend\device\kindle\device.lua" } |
-    Select-Object -First 1
+# Try common macOS mount first
+$candidates = @(
+    "/Volumes/Kindle/koreader/frontend/device/kindle/device.lua"
+)
 
-if (-not $drive) {
-    $driveLetter = [Microsoft.VisualBasic.Interaction]::InputBox("Couldn't auto-detect your Kindle 😢`nPlease enter the drive letter (like F)", "KOReader Patch", "")
-    $deviceLua = "$driveLetter`:\koreader\frontend\device\kindle\device.lua"
+# Also scan all mounted filesystem roots PowerShell sees
+$candidates += (Get-PSDrive -PSProvider FileSystem | ForEach-Object {
+    Join-Path $_.Root "koreader/frontend/device/kindle/device.lua"
+})
+
+$deviceLua = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+
+if (-not $deviceLua) {
+    $mountPath = Read-Host "Couldn't auto-detect your Kindle 😢`nPlease enter the mount path (e.g., /Volumes/Kindle)"
+    $deviceLua = Join-Path $mountPath "koreader/frontend/device/kindle/device.lua"
     if (-not (Test-Path $deviceLua)) {
-        [System.Windows.Forms.MessageBox]::Show("Still can't find KOReader at that location. Aborting!","Error",0,[System.Windows.Forms.MessageBoxIcon]::Error)
-        exit
+        Write-Error "Still can't find KOReader at that location. Aborting!"
+        exit 1
     }
 } else {
-    $deviceLua = "$($drive.Root)\koreader\frontend\device\kindle\device.lua"
     Write-Host "[OK] Found your Kindle at $deviceLua :3"
 }
 
@@ -168,8 +169,8 @@ $enabledPattern = '(?s)function Kindle:supportsScreensaver\(\)\s*.*?if\s+self\.i
 $disabledPattern = '(?s)function Kindle:supportsScreensaver\(\)\s*.*?if\s+self\.isSpecialOffers\s+then\s+return\s+false'
 
 if ($code -match $enabledPattern) {
-    $result = [System.Windows.Forms.MessageBox]::Show("KOReader screen saver is already ENABLED 🌸`nDo you want to disable it?", "Already Enabled", 4, [System.Windows.Forms.MessageBoxIcon]::Question)
-    if ($result -eq "Yes") {
+    $resp = Read-Host "KOReader screen saver is already enabled 🌸 `nDo you want to disable it? (y/n)"
+    if ($resp -match '^(y|yes)$') {
         Clear-Host
         Show-DecayAnimation -lines $flowerBloom -delay 80
         $patched = [regex]::Replace($code, $enabledPattern, { param($m) $m.Value -replace 'return\s+true', 'return false' })
@@ -177,7 +178,7 @@ if ($code -match $enabledPattern) {
         $msg = "🥀 KOReader screen saver has been DISABLED (set to false) 💤"
         Clear-And-Display $msg "DarkRed"
     } else {
-        [System.Windows.Forms.MessageBox]::Show("No changes made! KOReader screen saver is still ENABLED :3", "All Good!", 0, [System.Windows.Forms.MessageBoxIcon]::Information)
+        Write-Host "No changes made! KOReader screen saver is still ENABLED"
     }
 }
 elseif ($code -match $disabledPattern) {
@@ -189,5 +190,6 @@ elseif ($code -match $disabledPattern) {
     Clear-And-Display $msg "Green"
 }
 else {
-    [System.Windows.Forms.MessageBox]::Show("Couldn’t find the expected line to patch.`nMaybe this version of KOReader is different?", "Not Found", 0, [System.Windows.Forms.MessageBoxIcon]::Warning)
+    Write-Warning "Couldn’t find the expected line to patch.`nMaybe this version of KOReader is different?"
 }
+
