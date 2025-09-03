@@ -11,6 +11,7 @@ I personally perfer it as just an exe so I can leave it on my desktop and run it
 
 # MACOS USERS !!
 [Somebody](https://github.com/Phinhas214) forked the code to replace windows api calls with macos ones ! I'd recomend giving this .ps1's version a try before my original [You can find it here](https://github.com/ashesaffective/Ashes-KOReader-Screen-Saver-Enabler-Script/blob/macos-port/Ashes%20koreader%20Screensaver%20support%20Fix%20Script.ps1)
+
 [you can run the .ps1 script :3](https://www.youtube.com/watch?v=QvsNE0kEdwo) with brew ; untested ^^^ otherwise you can still get it working with the manual method from the redit post!
 
 
